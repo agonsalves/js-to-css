@@ -44,7 +44,7 @@ const App = () => {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     className="text"
-                    placeholder="input"
+                    placeholder="input (paste in full or partial JS object)"
                     onClick={() => window.location.reload()}
                     ref={myRef}
                 />
