@@ -1,25 +1,45 @@
-import logo from './logo.svg';
+import beautify from 'js-beautify'
+import { css } from 'glamor'
+import { useEffect, useState } from "react";
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    const [input, setInput] = useState('')
+    const [output, setOutput] = useState('')
+    const [dummy, setDummy] = useState(null)
+
+    useEffect( () => {
+        if (input.length) {
+            const stripped = input.replace(/(\r\n|\n|\r)/gm, "")
+            const js = eval( `(${stripped})` )
+            const maybe = css(js)
+            setDummy(maybe)
+        }
+    }, [input])
+
+    useEffect(() => {
+        const element = document.querySelector('[data-glamor]').innerHTML
+        setOutput(beautify.css(element))
+    }, [dummy])
+
+    return (
+        <div>
+        <textarea
+            name="input"
+            value={input}
+            //onChange={(e) => setInput(e.target.value)}
+            className="text"
+        />
+            <textarea
+                name="output"
+                value={output}
+                readOnly
+                className="text"
+                onClick={() => navigator.clipboard.writeText(output)}
+            />
+            <div className={`${dummy} dummy` }></div>
+        </div>
+    )
 }
 
 export default App;
