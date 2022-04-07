@@ -1,6 +1,6 @@
 import beautify from 'js-beautify'
-import { css, speedy } from 'glamor'
-import { useEffect, useState } from "react";
+import { css, speedy} from 'glamor'
+import { useEffect, useRef, useState } from "react";
 import './App.css';
 
 speedy(false)
@@ -9,13 +9,24 @@ const App = () => {
     const [input, setInput] = useState('')
     const [output, setOutput] = useState('')
     const [dummy, setDummy] = useState(null)
+    const myRef = useRef()
+
+    useEffect(() => {
+        myRef.current.focus()
+    }, [])
 
     useEffect( () => {
         if (input.length) {
-            const stripped = input.replace(/(\r\n|\n|\r)/gm, "")
-            const js = eval( `(${stripped})` )
-            const maybe = css(js)
-            setDummy(maybe)
+            const stripped = input.trim().replace(/(\r\n|\n|\r)/gm, "")
+            try {
+                const finalString = stripped.charAt(0) === '{' ? stripped : `{${stripped}}`
+                const js = eval( `(${finalString})` )
+                const maybe = css(js)
+                setDummy(maybe)
+            } catch (e) {
+                setOutput(e)
+            }
+
         }
     }, [input])
 
@@ -34,7 +45,8 @@ const App = () => {
                     onChange={(e) => setInput(e.target.value)}
                     className="text"
                     placeholder="input"
-                    onClick={(e) => e.target.select()}
+                    onClick={() => window.location.reload()}
+                    ref={myRef}
                 />
                 <textarea
                     name="output"
