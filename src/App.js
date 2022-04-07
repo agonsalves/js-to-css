@@ -27,7 +27,7 @@ const App = () => {
         <textarea
             name="input"
             value={input}
-            //onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => setInput(e.target.value)}
             className="text"
         />
             <textarea
@@ -35,7 +35,7 @@ const App = () => {
                 value={output}
                 readOnly
                 className="text"
-                onClick={() => navigator.clipboard.writeText(output)}
+                //onClick={() => navigator.clipboard.writeText(output)}
             />
             <div className={`${dummy} dummy` }></div>
         </div>
