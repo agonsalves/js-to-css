@@ -54,7 +54,7 @@ const App = () => {
                     readOnly
                     className="text"
                     placeholder="output"
-                    //onClick={() => navigator.clipboard.writeText(output)}
+                    onMouseUp={() => navigator.clipboard.writeText(document.getSelection().toString())}
                 />
                 <div className={`${dummy} dummy` }/>
             </div>
