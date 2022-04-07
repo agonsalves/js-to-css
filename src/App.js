@@ -24,22 +24,26 @@ const App = () => {
 
     return (
         <div>
-        <textarea
-            name="input"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="text"
-            placeholder="input"
-        />
-            <textarea
-                name="output"
-                value={output}
-                readOnly
-                className="text"
-                placeholder="output"
-                //onClick={() => navigator.clipboard.writeText(output)}
-            />
-            <div className={`${dummy} dummy` }/>
+
+            <div className="container">
+                <textarea
+                    name="input"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    className="text"
+                    placeholder="input"
+                    onClick={(e) => e.target.select()}
+                />
+                <textarea
+                    name="output"
+                    value={output}
+                    readOnly
+                    className="text"
+                    placeholder="output"
+                    //onClick={() => navigator.clipboard.writeText(output)}
+                />
+                <div className={`${dummy} dummy` }/>
+            </div>
         </div>
     )
 }
