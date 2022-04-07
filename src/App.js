@@ -1,7 +1,9 @@
 import beautify from 'js-beautify'
-import { css } from 'glamor'
+import { css, speedy } from 'glamor'
 import { useEffect, useState } from "react";
 import './App.css';
+
+speedy(false)
 
 const App = () => {
     const [input, setInput] = useState('')
