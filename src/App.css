@@ -18,11 +18,13 @@
 }
 
 .text {
-  width: 400px;
+  width: 500px;
   height: 600px;
   margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .container {
   display: flex;
+  padding-right: 30px;
 }

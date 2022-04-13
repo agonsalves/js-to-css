@@ -2,6 +2,7 @@ import beautify from 'js-beautify'
 import { css, speedy} from 'glamor'
 import { useEffect, useRef, useState } from "react";
 import './App.css';
+import ReactMarkdown from 'react-markdown';
 
 speedy(false)
 
@@ -9,10 +10,17 @@ const App = () => {
     const [input, setInput] = useState('')
     const [output, setOutput] = useState('')
     const [dummy, setDummy] = useState(null)
+    const [readMe, setReadMe] = useState('')
     const myRef = useRef()
+
+    const readMePath = require('./README.md')
 
     useEffect(() => {
         myRef.current.focus()
+
+        fetch(readMePath)
+            .then(res => res.text())
+            .then(text => setReadMe(text))
     }, [])
 
     useEffect( () => {
@@ -56,6 +64,9 @@ const App = () => {
                     placeholder="output"
                     onMouseUp={() => navigator.clipboard.writeText(document.getSelection().toString())}
                 />
+                <div>
+                    <ReactMarkdown>{readMe}</ReactMarkdown>
+                </div>
                 <div className={`${dummy} dummy` }/>
             </div>
         </div>
